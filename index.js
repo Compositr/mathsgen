@@ -42,6 +42,35 @@ if (type == "+") {
       a: answer,
     });
   }
+} else if (type === "*") {
+  for (let i = 0; i < 25; i++) {
+    let first = rnd(1, 12);
+    let last = rnd(1, 12);
+    let answer = first * last;
+    questions.push({
+      q: `${first}×${last}`,
+      a: answer,
+    });
+  }
+} else if (type === "/") {
+  for (let i = 0; i < 25; i++) {
+    let first = rnd(1, 12);
+    let last = rnd(1, 12);
+    while (
+      first < last ||
+      (first / last) % 1 != 0 ||
+      first / last == 1 ||
+      last == 1
+    ) {
+      first = rnd(1, 30);
+      last = rnd(1, 30);
+    }
+    let answer = first / last;
+    questions.push({
+      q: `${first}÷${last}`,
+      a: answer,
+    });
+  }
 }
 
 /** Doc */
@@ -64,7 +93,7 @@ doc.addPage({ orientation: "p", unit: "cm" });
 doc.text("ANSWERS", 3, 3);
 for (let i = 0; i < questions.length; i++) {
   const element = questions[i];
-  doc.text(`A${i + 1}. ${element.a}=`, 3, i + 4);
+  doc.text(`A${i + 1}. ${element.a}`, 3, i + 4);
 }
 doc.save("worksheet.pdf");
 console.log(questions);
