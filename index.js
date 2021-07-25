@@ -56,13 +56,13 @@ doc.setFontSize(12);
 
 for (let index = 0; index < questions.length; index++) {
   const e = questions[index];
-  doc.text(`Q${index + 1}. ${e.q}`, 3, (index) + 3);
+  doc.text(`Q${index + 1}. ${e.q}=`, 3, (index) + 3);
 }
 doc.addPage({ orientation: "p", unit: "cm" });
 doc.text("ANSWERS", 3, 3);
 for (let i = 0; i < questions.length; i++) {
   const element = questions[i];
-  doc.text(`A${i + 1}. ${element.a}`, 3, i + 4);
+  doc.text(`A${i + 1}. ${element.a}=`, 3, i + 4);
 }
 doc.save("worksheet.pdf");
 console.log(questions);
