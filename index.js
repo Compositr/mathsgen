@@ -45,18 +45,20 @@ if (type == "+") {
 }
 
 /** Doc */
+const d = new Date();
+const genTime = new Intl.DateTimeFormat("en-AU", { month: "long" }).format(d);
 const doc = new jsPDF({
   orientation: "p",
   unit: "cm",
 });
 doc.setFont("Times New Roman");
 doc.setFontSize(24);
-doc.text(`${humantype} Worksheet`, 1, 2);
+doc.text(`${humantype} Worksheet (Generated ${d.getDate()}, ${genTime})`, 1, 2);
 doc.setFontSize(12);
 
 for (let index = 0; index < questions.length; index++) {
   const e = questions[index];
-  doc.text(`Q${index + 1}. ${e.q}=`, 3, (index) + 3);
+  doc.text(`Q${index + 1}. ${e.q}=`, 3, index + 3);
 }
 doc.addPage({ orientation: "p", unit: "cm" });
 doc.text("ANSWERS", 3, 3);
