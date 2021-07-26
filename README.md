@@ -21,8 +21,8 @@ Enter the unzipped folder and hold shift, then right click. Select "Open in Powe
 npm i
 ```
 
-Once that is complete, type this phrase. Replace the "-" symbol with /,*,- or + for that respective type of worksheet
+Once that is complete, type this phrase. The program will ask you to provide a `type`. Read the prompt and continue
 ```
-$env:GENERATE_TYPE="-"; node index
+node index
 ```
 You should now find a worksheet.pdf file generated. 
