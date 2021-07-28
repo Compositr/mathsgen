@@ -1,5 +1,12 @@
 /** @format */
 
+/**
+ * @license
+ * All code within this repository, including this file is licensed under the 
+ * GNU GENERAL PUBLIC LICENSE
+ * Version 3, 29 June 2007
+ */
+
 /** Dependencies */
 
 const fs = require("fs");
