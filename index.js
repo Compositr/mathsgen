@@ -6,10 +6,11 @@ const fs = require("fs");
 const { v4: uuid } = require("uuid");
 const { default: jsPDF } = require("jspdf");
 const prompt = require("prompt");
+const chalk = require("chalk");
 
 prompt.start();
-prompt.message =
-  "Select a type of worksheet and press enter. (Valid choices are +,-,/,*)";
+prompt.message = chalk`
+  Select a type of worksheet and press {green ENTER} {gray Valid choices are {magenta + - / *}}`;
 
 prompt.get("type", (err, res) => {
   if (err) return err(err);
@@ -83,7 +84,11 @@ function app(type) {
   }
   if (typeof humantype == "undefined")
     return console.log(
-      "Please choose either +,-,* or /. Your choice of " + type + " was invalid"
+      chalk`
+      {red Whoops! An error occured. Please refer to the below message for more infomation!}
+      Worksheet type {magenta ${type}} is not supported!
+      Supported types are {magenta + - / *}
+      `
     );
   /** Doc */
   const d = new Date();
@@ -112,7 +117,10 @@ function app(type) {
     doc.text(`A${i + 1}. ${element.a}`, 3, i + 4);
   }
   doc.save("worksheet.pdf");
-  console.log("Successfully generated worksheet");
+
+  console.log(chalk`
+
+{green Successfully generated {magenta ${humantype}} worksheet!}`);
 }
 function rnd(min, max) {
   return Math.floor(Math.random() * (max - min + 1)) + min;
