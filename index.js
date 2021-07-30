@@ -17,6 +17,8 @@ const chalk = require("chalk");
 
 const problemGen = require("./database/ps");
 
+const questionsPerSheet = 50;
+
 prompt.start();
 prompt.message = chalk`
   Select a type of worksheet and press {green ENTER} {gray Valid choices are {magenta + - / *}}`;
@@ -38,9 +40,9 @@ function app(type) {
   /** Generate Questions */
   let questions = [];
   if (type == "+") {
-    for (let index = 0; index < 20; index++) {
-      let first = rnd(1, 20);
-      let last = rnd(1, 20);
+    for (let index = 0; index < questionsPerSheet; index++) {
+      let first = rnd(1, 25);
+      let last = rnd(1, 25);
       let answer = first + last;
       questions.push({
         q: `${first} + ${last}=`,
@@ -48,13 +50,13 @@ function app(type) {
       });
     }
   } else if (type == "-") {
-    for (let i = 0; i < 25; i++) {
-      let first = rnd(1, 20);
-      let last = rnd(1, 20);
+    for (let i = 0; i < questionsPerSheet; i++) {
+      let first = rnd(1, 25);
+      let last = rnd(1, 25);
       /** Prevent negative answers */
       while (first < last) {
-        first = rnd(1, 20);
-        last = rnd(1, 20);
+        first = rnd(1, 25);
+        last = rnd(1, 25);
       }
       let answer = first - last;
       questions.push({
@@ -63,7 +65,7 @@ function app(type) {
       });
     }
   } else if (type === "*") {
-    for (let i = 0; i < 25; i++) {
+    for (let i = 0; i < questionsPerSheet; i++) {
       let first = rnd(1, 12);
       let last = rnd(1, 12);
       let answer = first * last;
@@ -73,7 +75,7 @@ function app(type) {
       });
     }
   } else if (type === "/") {
-    for (let i = 0; i < 25; i++) {
+    for (let i = 0; i < questionsPerSheet; i++) {
       let first = rnd(1, 12);
       let last = rnd(1, 12);
       while (
@@ -117,16 +119,31 @@ function app(type) {
     2
   );
   doc.setFontSize(12);
-
+  let top = 3;
+  let n = 0;
   for (let index = 0; index < questions.length; index++) {
     const e = questions[index];
-    doc.text(`Q${index + 1}. ${e.q}`, 1, index + 3);
+
+    if (n % 5 == 0) {
+      top += 2;
+      n = 0;
+    }
+    doc.text(`Q${index + 1}. ${e.q}`, n * 4 + 1, top);
+    n++;
   }
   doc.addPage({ orientation: "p", unit: "cm" });
   doc.text("ANSWERS", 3, 3);
+  let x = 0;
+  let fromTop = 4;
   for (let i = 0; i < questions.length; i++) {
+    if (x % 5 == 0) {
+      fromTop += 2;
+      x = 0;
+    }
     const element = questions[i];
-    doc.text(`A${i + 1}. ${element.a}`, 3, i + 4);
+
+    doc.text(`A${i + 1}. ${element.a}`, x * 3 + 1, fromTop);
+    x++;
   }
   doc.save("worksheet.pdf");
 
