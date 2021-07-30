@@ -127,11 +127,14 @@ function app(type) {
 
   console.log(chalk`
 
-{green Successfully generated {magenta ${humantype}} worksheet!}`);
+{green Successfully generated {magenta ${humantype}} worksheet! ${__dirname}\\worksheet.pdf}`);
 }
 function rnd(min, max) {
   return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 function err(e) {
-  throw e;
+  return console.log(chalk`
+  {red Whoops! An error occured. Please refer to the message below for more information}
+  ${e}
+  `)
 }
