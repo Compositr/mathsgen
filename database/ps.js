@@ -50,30 +50,38 @@ const characters = [
   "Dominic",
   "Bella",
   "Simon",
+  "Mary",
+  "Max",
 ];
 const objects = [
   "pencils",
   "pens",
   "scissors",
   "cups",
-  "pieces of paper",
-  "x",
-  "y",
+  "caps",
+  "phones",
+  "dollars",
   "apples",
   "oranges",
   "bananas",
 ];
 module.exports = () => {
   const questions = [];
-  const person1 = characters[rnd(0, characters.length - 1)];
-  const person2 = characters[rnd(0, characters.length - 1)];
-  const object = objects[rnd(0, objects.length - 1)];
-  const first = rnd(2, 20);
-  const last = rnd(2, 20);
-  const answer = first + last;
-  questions.push({
-    q: `${person2} has ${first} ${object}. ${person1} gave ${person2} ${last} ${object}. How many ${object} does ${person2} have now?`,
-    a: answer
-  });
+  for (let i = 0; i < 25; i++) {
+    let person1 = characters[rnd(0, characters.length - 1)];
+    let person2 = characters[rnd(0, characters.length - 1)];
+    while(person1 === person2) {
+      person1 = characters[rnd(0, characters.length - 1)];
+      person2 = characters[rnd(0, characters.length - 1)];
+    }
+    const object = objects[rnd(0, objects.length - 1)];
+    const first = rnd(2, 20);
+    const last = rnd(2, 20);
+    const answer = first + last;
+    questions.push({
+      q: `${person2} has ${first} ${object}. ${person1} gave ${person2} ${last} ${object}. How many ${object} does ${person2} have now?`,
+      a: answer,
+    });
+  }
   return questions;
 };

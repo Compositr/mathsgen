@@ -36,7 +36,7 @@ function app(type) {
   if (type == "p") humantype = "Problem Solving";
 
   /** Generate Questions */
-  const questions = [];
+  let questions = [];
   if (type == "+") {
     for (let index = 0; index < 20; index++) {
       let first = rnd(1, 20);
@@ -92,7 +92,7 @@ function app(type) {
       });
     }
   } else if (type == "p") {
-    questions.push(problemGen()[0]);
+    questions = problemGen();
   }
   if (typeof humantype == "undefined")
     return console.log(
@@ -120,7 +120,7 @@ function app(type) {
 
   for (let index = 0; index < questions.length; index++) {
     const e = questions[index];
-    doc.text(`Q${index + 1}. ${e.q}`, 3, index + 3);
+    doc.text(`Q${index + 1}. ${e.q}`, 1, index + 3);
   }
   doc.addPage({ orientation: "p", unit: "cm" });
   doc.text("ANSWERS", 3, 3);
@@ -133,6 +133,10 @@ function app(type) {
   console.log(chalk`
 
 {green Successfully generated {magenta ${humantype}} worksheet! ${__dirname}\\worksheet.pdf}`);
+  if (type == "p")
+    console.log(
+      chalk`{red Hey there! Problem solving questions are expermiental, and may cause issues! Report bugs at {green https://github.com/CoolJim/mathsgen/issues}}`
+    );
 }
 function rnd(min, max) {
   return Math.floor(Math.random() * (max - min + 1)) + min;
