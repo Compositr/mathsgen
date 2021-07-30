@@ -2,7 +2,7 @@
 
 /**
  * @license
- * All code within this repository, including this file is licensed under the 
+ * All code within this repository, including this file is licensed under the
  * GNU GENERAL PUBLIC LICENSE
  * Version 3, 29 June 2007
  */
@@ -14,6 +14,8 @@ const { v4: uuid } = require("uuid");
 const { default: jsPDF } = require("jspdf");
 const prompt = require("prompt");
 const chalk = require("chalk");
+
+const problemGen = require("./database/ps");
 
 prompt.start();
 prompt.message = chalk`
@@ -31,6 +33,7 @@ function app(type) {
   if (type == "*") humantype = "Multiplication";
   if (type == "/") humantype = "Division";
   if (type == "-") humantype = "Subtraction";
+  if (type == "p") humantype = "Problem Solving";
 
   /** Generate Questions */
   const questions = [];
@@ -40,7 +43,7 @@ function app(type) {
       let last = rnd(1, 20);
       let answer = first + last;
       questions.push({
-        q: `${first} + ${last}`,
+        q: `${first} + ${last}=`,
         a: answer,
       });
     }
@@ -55,7 +58,7 @@ function app(type) {
       }
       let answer = first - last;
       questions.push({
-        q: `${first} - ${last}`,
+        q: `${first} - ${last}=`,
         a: answer,
       });
     }
@@ -65,7 +68,7 @@ function app(type) {
       let last = rnd(1, 12);
       let answer = first * last;
       questions.push({
-        q: `${first}×${last}`,
+        q: `${first}×${last}=`,
         a: answer,
       });
     }
@@ -84,10 +87,12 @@ function app(type) {
       }
       let answer = first / last;
       questions.push({
-        q: `${first}÷${last}`,
+        q: `${first}÷${last}=`,
         a: answer,
       });
     }
+  } else if (type == "p") {
+    questions.push(problemGen()[0]);
   }
   if (typeof humantype == "undefined")
     return console.log(
@@ -115,7 +120,7 @@ function app(type) {
 
   for (let index = 0; index < questions.length; index++) {
     const e = questions[index];
-    doc.text(`Q${index + 1}. ${e.q}=`, 3, index + 3);
+    doc.text(`Q${index + 1}. ${e.q}`, 3, index + 3);
   }
   doc.addPage({ orientation: "p", unit: "cm" });
   doc.text("ANSWERS", 3, 3);
@@ -136,5 +141,5 @@ function err(e) {
   return console.log(chalk`
   {red Whoops! An error occured. Please refer to the message below for more information}
   ${e}
-  `)
+  `);
 }
