@@ -1,5 +1,5 @@
 <!-- @format -->
-# v1.1.1 (30/07/2021 2:11PM AEST) Colour Release! Patch #1
+# v1.1.1 (1/08/2021 6:56PM AEST) Colour Release! Patch #1
 - Bumped questions per sheet to 50 from 20
 - Questions + answers now appear in columns to fit more questions in
 - Added contributing guidelines (see CONTRIBUTING file)
