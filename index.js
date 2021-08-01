@@ -119,48 +119,60 @@ function app(type) {
     2
   );
   doc.setFontSize(12);
-  let top = 3;
-  let n = 0;
-  for (let index = 0; index < questions.length; index++) {
-    const e = questions[index];
 
-    if (n % 5 == 0) {
-      top += 2;
-      n = 0;
+  if (type !== "p") {
+    let top = 3;
+    let n = 0;
+    for (let index = 0; index < questions.length; index++) {
+      const e = questions[index];
+
+      if (n % 5 == 0) {
+        top += 2;
+        n = 0;
+      }
+      doc.text(`Q${index + 1}. ${e.q}`, n * 4 + 1, top);
+      n++;
     }
-    doc.text(`Q${index + 1}. ${e.q}`, n * 4 + 1, top);
-    n++;
+  } else {
+    for (let n = 0; n < questions.length; n++) {
+      const e = questions[n];
+      doc.text(`Q${n + 1}. ${e.q}`, 1, n + 3);
+    }
   }
   doc.addPage({ orientation: "p", unit: "cm" });
-  doc.text("ANSWERS", 3, 3);
-  let x = 0;
-  let fromTop = 4;
-  for (let i = 0; i < questions.length; i++) {
-    if (x % 5 == 0) {
-      fromTop += 2;
-      x = 0;
-    }
-    const element = questions[i];
+  doc.text("ANSWERS", 1, 2);
 
-    doc.text(`A${i + 1}. ${element.a}`, x * 3 + 1, fromTop);
-    x++;
+  if (type !== "p") {
+    let x = 0;
+    let fromTop = 4;
+    for (let i = 0; i < questions.length; i++) {
+      if (x % 5 == 0) {
+        fromTop += 2;
+        x = 0;
+      }
+      const element = questions[i];
+
+      doc.text(`A${i + 1}. ${element.a}`, x * 3 + 1, fromTop);
+      x++;
+    }
+  } else {
+    for (let i = 0; i < questions.length; i++) {
+      const e = questions[i];
+      doc.text(`A${i + 1}. ${e.a}`, 1, i + 3);
+    }
   }
   doc.save("worksheet.pdf");
 
   console.log(chalk`
 
 {green Successfully generated {magenta ${humantype}} worksheet! ${__dirname}\\worksheet.pdf}`);
-  if (type == "p")
-    console.log(
-      chalk`{red Hey there! Problem solving questions are expermiental, and may cause issues! Report bugs at {green https://github.com/CoolJim/mathsgen/issues}}`
-    );
-}
-function rnd(min, max) {
-  return Math.floor(Math.random() * (max - min + 1)) + min;
-}
-function err(e) {
-  return console.log(chalk`
+  function rnd(min, max) {
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+  }
+  function err(e) {
+    return console.log(chalk`
   {red Whoops! An error occured. Please refer to the message below for more information}
   ${e}
   `);
+  }
 }
