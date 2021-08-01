@@ -52,6 +52,16 @@ const characters = [
   "Simon",
   "Mary",
   "Max",
+  "Garry",
+  "Gavin",
+  "Serry",
+  "Tommy",
+  "Tom",
+  "Noah",
+  "Brad",
+  "Nick",
+  "Ted",
+  "Oscar"
 ];
 const objects = [
   "pencils",
@@ -64,6 +74,7 @@ const objects = [
   "apples",
   "oranges",
   "bananas",
+  "chips"
 ];
 module.exports = () => {
   const questions = [];
