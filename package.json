@@ -41,6 +41,7 @@
     "outputPath": "releases/bin",
     "targets": [
       "node14-win-x64"
-    ]
+    ],
+    "assets": ["*.md", "LICENSE"]
   }
 }
