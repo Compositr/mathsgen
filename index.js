@@ -21,7 +21,7 @@ const questionsPerSheet = 50;
 
 prompt.start();
 prompt.message = chalk`
-  Select a type of worksheet and press {green ENTER} {gray Valid choices are {magenta + - / *}}`;
+  {cyan ?} Select a type of worksheet and press {green ENTER} {gray Valid choices are {magenta + - / *}}`;
 
 prompt.get("type", (err, res) => {
   if (err) return err(err);
@@ -162,17 +162,14 @@ function app(type) {
     }
   }
   doc.save("worksheet.pdf");
-
-  console.log(chalk`
-
-{green Successfully generated {magenta ${humantype}} worksheet! ${__dirname}\\worksheet.pdf}`);
+  console.log(
+    chalk`{green ✓} Successfully generated {magenta ${humantype}} worksheet! File at: ${__dirname}\\worksheet.pdf`
+  );
   function rnd(min, max) {
     return Math.floor(Math.random() * (max - min + 1)) + min;
   }
   function err(e) {
-    return console.log(chalk`
-  {red Whoops! An error occured. Please refer to the message below for more information}
-  ${e}
-  `);
+    return console.log(chalk`{red Whoops! An error occured. Please refer to the message below for more information}
+  ${e}`);
   }
 }
