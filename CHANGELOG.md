@@ -4,6 +4,7 @@
 - Added new random names for problem solving
 - Changed user interface to make it better
 - Experimental .exe file releases
+- Made it pause the console before exiting aburptly
 
 # v1.1.1 (1/08/2021 6:56PM AEST) Colour Release! Patch #1
 - Bumped questions per sheet to 50 from 20
