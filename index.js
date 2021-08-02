@@ -26,6 +26,9 @@ prompt.message = chalk`
 prompt.get("type", (err, res) => {
   if (err) return err(err);
   app(res.type);
+  /** Pause */
+  prompt.message = chalk`{green ✓} Press enter to continue...`;
+  prompt.get(" ", (err, res) => {});
 });
 
 function app(type) {
@@ -173,3 +176,5 @@ function app(type) {
   ${e}`);
   }
 }
+
+
