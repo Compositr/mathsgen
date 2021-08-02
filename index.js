@@ -14,9 +14,10 @@ const { v4: uuid } = require("uuid");
 const { default: jsPDF } = require("jspdf");
 const prompt = require("prompt");
 const chalk = require("chalk");
+const updater = require("check-update-github");
 
 const problemGen = require("./database/ps");
-
+const pkg = require("./package.json");
 const questionsPerSheet = 50;
 
 prompt.start();
@@ -25,6 +26,20 @@ prompt.message = chalk`
 
 prompt.get("type", (err, res) => {
   if (err) return err(err);
+  /** Check for update */
+  updater(
+    {
+      name: pkg.name,
+      currentVersion: pkg.version,
+      user: "CoolJim",
+      branch: "main",
+    },
+    (err, latestVersion, defualtMessage) => {
+      if (!err) {
+        console.log(defualtMessage);
+      }
+    }
+  );
   app(res.type);
   /** Pause */
   prompt.message = chalk`{green ✓} Press enter to continue...`;
@@ -176,5 +191,3 @@ function app(type) {
   ${e}`);
   }
 }
-
-
