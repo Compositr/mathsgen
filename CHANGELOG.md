@@ -1,5 +1,5 @@
 <!-- @format -->
-# v1.2.0 (1/08/2021 7:07PM AEST) Problem Solvers
+# v1.2.0 (2/08/2021 5:03PM AEST) Problem Solvers
 - Problem solving engine now is fully functional. 
 - Added new random names for problem solving
 - Changed user interface to make it better
