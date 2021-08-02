@@ -169,7 +169,7 @@ function app(type) {
     return Math.floor(Math.random() * (max - min + 1)) + min;
   }
   function err(e) {
-    return console.log(chalk`{red Whoops! An error occured. Please refer to the message below for more information}
+    return console.log(chalk`{red ✘} Whoops! An error occured. Please refer to the message below for more information
   ${e}`);
   }
 }
