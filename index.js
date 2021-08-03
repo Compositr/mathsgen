@@ -20,31 +20,33 @@ const problemGen = require("./database/ps");
 const pkg = require("./package.json");
 const questionsPerSheet = 50;
 
-prompt.start();
-prompt.message = chalk`
+/** Check for update */
+updater(
+  {
+    name: pkg.name,
+    currentVersion: pkg.version,
+    user: "CoolJim",
+    branch: "main",
+  },
+  (err, latestVersion, defualtMessage) => {
+    /** Make sure to filter if returned is null (returns null primitive object???) */
+    if (!err) {
+      console.log(defualtMessage);
+      /** Start program after it checks for updates. */
+      prompt.start();
+      prompt.message = chalk`
   {cyan ?} Select a type of worksheet and press {green ENTER} {gray Valid choices are {magenta + - / * p}}`;
 
-prompt.get("type", (err, res) => {
-  if (err) return err(err);
-  /** Check for update */
-  updater(
-    {
-      name: pkg.name,
-      currentVersion: pkg.version,
-      user: "CoolJim",
-      branch: "main",
-    },
-    (err, latestVersion, defualtMessage) => {
-      if (!err) {
-        console.log(defualtMessage);
-      }
+      prompt.get("type", (err, res) => {
+        if (err) return err(err);
+        app(res.type);
+        /** Pause */
+        prompt.message = chalk`{green ✓} Press enter to continue...`;
+        prompt.get(" ", (err, res) => {});
+      });
     }
-  );
-  app(res.type);
-  /** Pause */
-  prompt.message = chalk`{green ✓} Press enter to continue...`;
-  prompt.get(" ", (err, res) => {});
-});
+  }
+);
 
 function app(type) {
   /** Environment Variables */
