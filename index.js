@@ -116,14 +116,12 @@ function app(type) {
   } else if (type == "p") {
     questions = problemGen();
   }
-  if (typeof humantype == "undefined")
-    return console.log(
-      chalk`
-      {red Whoops! An error occured. Please refer to the below message for more infomation!}
-      Worksheet type {magenta ${type}} is not supported!
-      Supported types are {magenta + - / *}
-      `
+  if (typeof humantype == "undefined") {
+    err(
+      chalk`Worksheet type {magenta ${type}} is not supported! Supported types are {magenta + - / * p}`
     );
+    return;
+  }
   /** Doc */
   const d = new Date();
   const genTime = new Intl.DateTimeFormat("en-AU", { month: "long" }).format(d);
