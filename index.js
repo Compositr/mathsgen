@@ -14,7 +14,7 @@ const { v4: uuid } = require("uuid");
 const { default: jsPDF } = require("jspdf");
 const prompt = require("prompt");
 const chalk = require("chalk");
-const updater = require("check-update-github");
+const updater = require("./libs/updater");
 
 const problemGen = require("./database/ps");
 const pkg = require("./package.json");
