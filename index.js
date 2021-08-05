@@ -34,8 +34,7 @@ updater(
       console.log(defualtMessage);
       /** Start program after it checks for updates. */
       prompt.start();
-      prompt.message = chalk`
-  {cyan ?} Select a type of worksheet and press {green ENTER} {gray Valid choices are {magenta + - / * p}}`;
+      prompt.message = chalk`{cyan ?} Select a type of worksheet and press {green ENTER} {gray Valid choices are {magenta + - / * p}}`;
 
       prompt.get("type", (err, res) => {
         if (err) return err(err);

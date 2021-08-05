@@ -5,6 +5,7 @@
 - Changed user interface to make it better
 - Experimental .exe file releases
 - Added update detector
+- Added times, divide and minus to problem solving engine
 - Made it pause the console before exiting aburptly
 
 # v1.1.1 (1/08/2021 6:56PM AEST) Colour Release! Patch #1
