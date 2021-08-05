@@ -1,5 +1,14 @@
 <!-- @format -->
-# v1.1.1 (30/07/2021 2:11PM AEST) Colour Release! Patch #1
+# v1.2.0 (2/08/2021 5:03PM AEST) Problem Solvers
+- Problem solving engine now is fully functional. 
+- Added new random names for problem solving
+- Changed user interface to make it better
+- Experimental .exe file releases
+- Added update detector
+- Added times, divide and minus to problem solving engine
+- Made it pause the console before exiting aburptly
+
+# v1.1.1 (1/08/2021 6:56PM AEST) Colour Release! Patch #1
 - Bumped questions per sheet to 50 from 20
 - Questions + answers now appear in columns to fit more questions in
 - Added contributing guidelines (see CONTRIBUTING file)
