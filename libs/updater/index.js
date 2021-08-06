@@ -25,7 +25,7 @@ const defaultMessage = function (options) {
   ) {
     return chalk`{cyan !} Patch update avaliable (${options.currentVersion} ➔ ${options.latestVersion})`;
   } else {
-    return chalk`{cyan !} Experimental version detected! Please be careful...`;
+    return chalk`{cyan β} Experimental version detected! Please be careful...`;
   }
   // } else {
   //   return chalk`{} Update avaliable!`
