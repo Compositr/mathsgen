@@ -1,4 +1,7 @@
 <!-- @format -->
+
+# v1.2.1-hotfix
+- Hotfix for updater
 # v1.2.1 (6/08/2021 10:00AM AEST) Problem Solvers Patch 1
 - Updater does not output null when program is up to date
 - Replaced missing ✓ unicode symbol with √ (sq. root)
