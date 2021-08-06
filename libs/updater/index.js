@@ -13,15 +13,15 @@ const defaultMessage = function (options) {
   } else if (
     semver.minor(options.latestVersion) >
       semver.minor(options.currentVersion) &&
-    semver.major(options.latestVersion) > semver.major(options.currentVersion)
+    semver.major(options.latestVersion) < semver.major(options.currentVersion)
   ) {
     return chalk`{yellow !} Feature update avaliable (${options.currentVersion} ➔ {green ${options.latestVersion}})`;
   } else if (
     semver.patch(options.latestVersion) >
       semver.patch(options.currentVersion) &&
-    semver.minor(options.latestVersion) >
+    semver.minor(options.latestVersion) <
       semver.minor(options.currentVersion) &&
-    semver.major(options.latestVersion) > semver.major(options.currentVersion)
+    semver.major(options.latestVersion) < semver.major(options.currentVersion)
   ) {
     return chalk`{cyan !} Patch update avaliable (${options.currentVersion} ➔ ${options.latestVersion})`;
   } else {
