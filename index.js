@@ -31,7 +31,7 @@ updater(
   (err, latestVersion, defualtMessage) => {
     /** Make sure to filter if returned is null (returns null primitive object???) */
     if (!err) {
-      console.log(defualtMessage);
+      if (defualtMessage !== null) console.log(defualtMessage);
       /** Start program after it checks for updates. */
       prompt.start();
       prompt.message = chalk`{cyan ?} Select a type of worksheet and press {green ENTER} {gray Valid choices are {magenta + - / * p}}`;
@@ -40,7 +40,7 @@ updater(
         if (err) return err(err);
         app(res.type);
         /** Pause */
-        prompt.message = chalk`{green ✓} Press enter to continue...`;
+        prompt.message = chalk`{green √} Press enter to continue...`;
         prompt.get(" ", (err, res) => {});
       });
     }
@@ -180,13 +180,13 @@ function app(type) {
   }
   doc.save("worksheet.pdf");
   console.log(
-    chalk`{green ✓} Successfully generated {magenta ${humantype}} worksheet! File at: ${__dirname}\\worksheet.pdf`
+    chalk`{green √} Successfully generated {magenta ${humantype}} worksheet! File at: ${__dirname}\\worksheet.pdf`
   );
   function rnd(min, max) {
     return Math.floor(Math.random() * (max - min + 1)) + min;
   }
   function err(e) {
-    return console.log(chalk`{red ✘} Whoops! An error occured. Please refer to the message below for more information
+    return console.log(chalk`{red X} Whoops! An error occured. Please refer to the message below for more information
   ${e}`);
   }
 }
