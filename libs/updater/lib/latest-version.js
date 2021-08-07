@@ -18,11 +18,11 @@ module.exports = (options, cb) => {
       "/package.json",
     (err, data) => {
       if (err === 404) {
-        cb(new Error("Package or version doesn't exist on GitHub. Perhaps it is private?"));
+        cb(new Error("Package or version doesn't exist on GitHub. Perhaps it is private?"), null);
         return;
       }
       if (err) {
-        cb(err);
+        cb(err, null);
         return;
       }
       cb(null, JSON.parse(data).version);
