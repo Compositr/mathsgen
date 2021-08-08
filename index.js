@@ -9,10 +9,8 @@
 
 /** Dependencies */
 
-const fs = require("fs");
-const { v4: uuid } = require("uuid");
 const { default: jsPDF } = require("jspdf");
-const prompt = require("prompt");
+const prompts = require("prompts");
 const chalk = require("chalk");
 const updater = require("./libs/updater");
 
@@ -28,26 +26,30 @@ updater(
     user: "CoolJim",
     branch: "main",
   },
-  (err, latestVersion, defualtMessage) => {
+  async (err, latestVersion, defualtMessage) => {
     /** Make sure to filter if returned is null (returns null primitive object???) */
     if (!err) {
       if (defualtMessage !== null) console.log(defualtMessage);
       /** Start program after it checks for updates. */
-      prompt.start();
-      prompt.message = chalk`{cyan ?} Select a type of worksheet and press {green ENTER} {gray Valid choices are {magenta + - / * p}}`;
-
-      prompt.get("type", (err, res) => {
-        if (err) return err(err);
-        app(res.type);
-        /** Pause */
-        prompt.message = chalk`{green √} Press enter to continue...`;
-        prompt.get(" ", (err, res) => {});
-      });
+      const questions = [
+        {
+          type: "text",
+          name: "type",
+          message: chalk`Select a type of worksheet to generate. {gray Valid choices are {magenta  + - / * p}}`,
+        },
+        {
+          type: (prev) => (prev == "p" ? null : "list"),
+          name: "range",
+          message: chalk`This program generates questions with random numbers from a range. Select the range. {gray (seperate with comma)}`,
+        },
+      ];
+      const res = await prompts(questions);
+      app(res.type, parseInt(res.range[0]), parseInt(res.range[1]));
     }
   }
 );
 
-function app(type) {
+function app(type, h, l) {
   /** Environment Variables */
   let humantype;
   if (type == "+") humantype = "Addition";
@@ -60,8 +62,8 @@ function app(type) {
   let questions = [];
   if (type == "+") {
     for (let index = 0; index < questionsPerSheet; index++) {
-      let first = rnd(1, 25);
-      let last = rnd(1, 25);
+      let first = rnd(l, h);
+      let last = rnd(l, h);
       let answer = first + last;
       questions.push({
         q: `${first} + ${last}=`,
@@ -70,12 +72,12 @@ function app(type) {
     }
   } else if (type == "-") {
     for (let i = 0; i < questionsPerSheet; i++) {
-      let first = rnd(1, 25);
-      let last = rnd(1, 25);
+      let first = rnd(l, h);
+      let last = rnd(l, h);
       /** Prevent negative answers */
       while (first < last) {
-        first = rnd(1, 25);
-        last = rnd(1, 25);
+        first = rnd(l, h);
+        last = rnd(l, h);
       }
       let answer = first - last;
       questions.push({
@@ -85,8 +87,8 @@ function app(type) {
     }
   } else if (type === "*") {
     for (let i = 0; i < questionsPerSheet; i++) {
-      let first = rnd(1, 12);
-      let last = rnd(1, 12);
+      let first = rnd(l, h);
+      let last = rnd(l, h);
       let answer = first * last;
       questions.push({
         q: `${first}×${last}=`,
@@ -95,16 +97,16 @@ function app(type) {
     }
   } else if (type === "/") {
     for (let i = 0; i < questionsPerSheet; i++) {
-      let first = rnd(1, 12);
-      let last = rnd(1, 12);
+      let first = rnd(l, h);
+      let last = rnd(l, h);
       while (
         first < last ||
         (first / last) % 1 != 0 ||
         first / last == 1 ||
         last == 1
       ) {
-        first = rnd(1, 30);
-        last = rnd(1, 30);
+        first = rnd(l, h);
+        last = rnd(l, h);
       }
       let answer = first / last;
       questions.push({
