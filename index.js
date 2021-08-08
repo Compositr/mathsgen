@@ -44,7 +44,9 @@ updater(
         },
       ];
       const res = await prompts(questions);
-      app(res.type, parseInt(res.range[0]), parseInt(res.range[1]));
+      if (res.range) {
+        app(res.type, parseInt(res.range[0]) || 1, parseInt(res.range[1]) || 0);
+      } else app(res.type, 1, 10);
     }
   }
 );
