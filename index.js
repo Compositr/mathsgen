@@ -17,7 +17,7 @@ const pause = require("node-pause");
 const updater = require("./libs/updater");
 const problemGen = require("./database/ps");
 const pkg = require("./package.json");
-const pMsg = chalk`{bold Press any key to continue}`;
+const pMsg = chalk`{green √} {bold Press any key to continue}`;
 
 /** Check for update */
 updater(
