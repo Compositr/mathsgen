@@ -6,26 +6,8 @@ const semver = require("semver");
 const defaultMessage = function (options) {
   if (options.latestVersion == options.currentVersion) {
     return null;
-  } else if (
-    semver.major(options.latestVersion) > semver.major(options.currentVersion)
-  ) {
-    return chalk`{red !} Major update avaliable ({yellow ${options.currentVersion}} ➔ {green ${options.latestVersion}})`;
-  } else if (
-    semver.minor(options.latestVersion) >
-      semver.minor(options.currentVersion) &&
-    semver.major(options.latestVersion) > semver.major(options.currentVersion)
-  ) {
-    return chalk`{yellow !} Feature update avaliable (${options.currentVersion} ➔ {green ${options.latestVersion}})`;
-  } else if (
-    semver.patch(options.latestVersion) >
-      semver.patch(options.currentVersion) &&
-    semver.minor(options.latestVersion) >
-      semver.minor(options.currentVersion) &&
-    semver.major(options.latestVersion) > semver.major(options.currentVersion)
-  ) {
-    return chalk`{cyan !} Patch update avaliable (${options.currentVersion} ➔ ${options.latestVersion})`;
   } else {
-    return chalk`{cyan β} Experimental version detected! Please be careful...`;
+    return chalk`{cyan !} Update avaliable! {yellow ${options.currentVersion} => {green ${options.latestVersion}}}. Get it at {underline {blue https://github.com/CoolJim/mathsgen/releases}}`;
   }
   // } else {
   //   return chalk`{} Update avaliable!`
