@@ -31,6 +31,12 @@ class Expression {
   }
 }
 
+class Problem extends Expression {
+  constructor() {
+    // COMBAK
+  }
+}
+
 function rnd(min, max) {
   return Math.floor(Math.random() * (max - min + 1)) + min;
 }
@@ -43,6 +49,7 @@ function err(e) {
 
 const characters = [
   "Billy",
+  "Annabel",
   "Noel",
   "Harry",
   "Issac",
@@ -62,6 +69,8 @@ const characters = [
   "Nick",
   "Ted",
   "Oscar",
+  "Willy",
+  "Jackie"
 ];
 const objects = [
   "pencils",
@@ -73,8 +82,11 @@ const objects = [
   "dollars",
   "apples",
   "oranges",
+  "candies",
   "bananas",
   "chips",
+  "pineapples",
+  "fruits"
 ];
 module.exports = () => {
   const questions = [];

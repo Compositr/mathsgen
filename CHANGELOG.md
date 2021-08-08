@@ -1,6 +1,7 @@
 <!-- @format -->
 # v1.2.2 (7/08/2021 12:12PM AEST) Problem Solvers Patch 2
 - Update updater callback function
+- Added some more objects & characters to the problem solving engine
 # v1.2.1 (6/08/2021 10:00AM AEST) Problem Solvers Patch 1
 - Updater does not output null when program is up to date
 - Replaced missing ✓ unicode symbol with √ (sq. root)
