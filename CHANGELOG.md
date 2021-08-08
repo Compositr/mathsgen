@@ -3,6 +3,7 @@
 - Clean up code
 - You can now select the range of numbers to use when generating worksheets! (Does not work with problem solving)
 - Fixed updater not informing user about update
+- Clean up dependencies
 # v1.2.2 (7/08/2021 12:12PM AEST) Problem Solvers Patch 2
 - Update updater callback function
 - Added some more objects & characters to the problem solving engine

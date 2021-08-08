@@ -29,6 +29,7 @@
     "chalk": "^4.1.1",
     "got": "^2.9.2",
     "jspdf": "^2.3.1",
+    "node-pause": "^1.0.1",
     "prompts": "^2.4.1"
   },
   "bin": "index.js",

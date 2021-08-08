@@ -12,11 +12,12 @@
 const { default: jsPDF } = require("jspdf");
 const prompts = require("prompts");
 const chalk = require("chalk");
-const updater = require("./libs/updater");
+const pause = require("node-pause");
 
+const updater = require("./libs/updater");
 const problemGen = require("./database/ps");
 const pkg = require("./package.json");
-const questionsPerSheet = 50;
+const pMsg = chalk`{bold Press any key to continue}`;
 
 /** Check for update */
 updater(
@@ -28,26 +29,25 @@ updater(
   },
   async (err, latestVersion, defualtMessage) => {
     /** Make sure to filter if returned is null (returns null primitive object???) */
-      console.log(defualtMessage);
-      /** Start program after it checks for updates. */
-      const questions = [
-        {
-          type: "text",
-          name: "type",
-          message: chalk`Select a type of worksheet to generate. {gray Valid choices are {magenta  + - / * p}}`,
-        },
-        {
-          type: (prev) => (prev == "p" ? null : "list"),
-          name: "range",
-          message: chalk`This program generates questions with random numbers from a range. Select the range. {gray (seperate with comma)}`,
-        },
-      ];
-      const res = await prompts(questions);
-      if (res.range) {
-        app(res.type, parseInt(res.range[0]) || 1, parseInt(res.range[1]) || 0);
-      } else app(res.type, 1, 10);
-    }
-  
+    console.log(defualtMessage);
+    /** Start program after it checks for updates. */
+    const questions = [
+      {
+        type: "text",
+        name: "type",
+        message: chalk`Select a type of worksheet to generate. {gray Valid choices are {magenta  + - / * p}}`,
+      },
+      {
+        type: (prev) => (prev == "p" ? null : "list"),
+        name: "range",
+        message: chalk`This program generates questions with random numbers from a range. Select the range. {gray (seperate with comma)}`,
+      },
+    ];
+    const res = await prompts(questions);
+    if (res.range) {
+      app(res.type, parseInt(res.range[0]) || 1, parseInt(res.range[1]) || 0);
+    } else app(res.type, 1, 10);
+  }
 );
 
 function app(type, h, l) {
@@ -185,11 +185,13 @@ function app(type, h, l) {
   console.log(
     chalk`{green √} Successfully generated {magenta ${humantype}} worksheet! File at: ${__dirname}\\worksheet.pdf`
   );
+  return pause(pMsg);
   function rnd(min, max) {
     return Math.floor(Math.random() * (max - min + 1)) + min;
   }
   function err(e) {
-    return console.log(chalk`{red X} Whoops! An error occured. Please refer to the message below for more information
+    console.log(chalk`{red X} Whoops! An error occured. Please refer to the message below for more information
   ${e}`);
+    return pause(pMsg);
   }
 }
