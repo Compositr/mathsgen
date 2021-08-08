@@ -3,11 +3,11 @@
 const latest = require("./lib/latest-version.js");
 const chalk = require("chalk");
 const semver = require("semver");
-const defaultMessage = function (options) {
-  if (options.latestVersion == options.currentVersion) {
+const defaultMessage = function (options, latestVersion) {
+  if (latestVersion == options.currentVersion) {
     return null;
   } else {
-    return chalk`{cyan !} Update avaliable! {yellow ${options.currentVersion} => {green ${options.latestVersion}}}. Get it at {underline {blue https://github.com/CoolJim/mathsgen/releases}}`;
+    return chalk`{cyan !} Update avaliable! {yellow ${options.currentVersion} => {green ${latestVersion}}}. Get it at {underline {blue https://github.com/CoolJim/mathsgen/releases}}`;
   }
   // } else {
   //   return chalk`{} Update avaliable!`
@@ -20,7 +20,6 @@ const defaultMessage = function (options) {
 };
 module.exports = function (options, cb) {
   latest(options, function (err, latestVersion) {
-    options.latestVersion = latestVersion;
     if (err) {
       cb(err);
       return;
@@ -28,7 +27,7 @@ module.exports = function (options, cb) {
       cb(null, latestVersion, null);
       return;
     } else {
-      cb(null, latestVersion, defaultMessage(options));
+      cb(null, latestVersion, defaultMessage(options, latestVersion));
       return;
     }
   });

@@ -28,8 +28,7 @@ updater(
   },
   async (err, latestVersion, defualtMessage) => {
     /** Make sure to filter if returned is null (returns null primitive object???) */
-    if (!err) {
-      if (defualtMessage !== null) console.log(defualtMessage);
+      console.log(defualtMessage);
       /** Start program after it checks for updates. */
       const questions = [
         {
@@ -48,7 +47,7 @@ updater(
         app(res.type, parseInt(res.range[0]) || 1, parseInt(res.range[1]) || 0);
       } else app(res.type, 1, 10);
     }
-  }
+  
 );
 
 function app(type, h, l) {

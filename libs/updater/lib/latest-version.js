@@ -26,6 +26,7 @@ module.exports = (options, cb) => {
         return;
       }
       cb(null, JSON.parse(data).version);
+      
     }
   );
 };
