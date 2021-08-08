@@ -2,6 +2,7 @@
 # v1.3.0 (8/08/2021 4:52PM AEST) The Choice Update
 - Clean up code
 - You can now select the range of numbers to use when generating worksheets! (Does not work with problem solving)
+- Fixed updater
 # v1.2.2 (7/08/2021 12:12PM AEST) Problem Solvers Patch 2
 - Update updater callback function
 - Added some more objects & characters to the problem solving engine
