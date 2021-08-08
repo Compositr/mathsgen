@@ -2,12 +2,11 @@
 
 const latest = require("./lib/latest-version.js");
 const chalk = require("chalk");
-const latestVersion = require("./lib/latest-version.js");
 
 const defaultMessage = (options) => {
-  if(currentVersion === latestVersion) return null;
+  if (options.currentVersion === options.latestVersion) return null;
   else {
-    return chalk`{cyan !} An update is avaliable! {gray {yellow ${currentVersion}} => {green ${latestVersion}}`
+    return chalk`{cyan !} An update is avaliable! {gray ({yellow ${options.currentVersion}} => {green ${options.latestVersion}})} Go to {underline {blue https://github.com/cooljim/mathsgen/releases}} to fetch the latest update`;
   }
 };
 module.exports = function (options, cb) {
