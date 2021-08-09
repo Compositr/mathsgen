@@ -29,7 +29,8 @@ updater(
   },
   async (err, latestVersion, defualtMessage) => {
     /** Make sure to filter if returned is null (returns null primitive object???) */
-    console.log(defualtMessage);
+    if (defualtMessage !== null) console.log(defualtMessage);
+
     /** Start program after it checks for updates. */
     const questions = [
       {
