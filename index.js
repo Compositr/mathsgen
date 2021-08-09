@@ -18,6 +18,7 @@ const updater = require("./libs/updater");
 const problemGen = require("./database/ps");
 const pkg = require("./package.json");
 const pMsg = chalk`{green √} {bold Press any key to continue}`;
+const questionsPerSheet = 50;
 
 /** Check for update */
 updater(
@@ -34,9 +35,16 @@ updater(
     /** Start program after it checks for updates. */
     const questions = [
       {
-        type: "text",
+        type: "select",
         name: "type",
-        message: chalk`Select a type of worksheet to generate. {gray Valid choices are {magenta  + - / * p}}`,
+        message: chalk`Select a type of worksheet to generate.`,
+        choices: [
+          { title: "Addition", value: "+" },
+          { title: "Subtraction", value: "-" },
+          { title: "Multiplication", value: "*" },
+          { title: "Division", value: "/" },
+          {title: "Problem Solving", value: "p"}
+        ],
       },
       {
         type: (prev) => (prev == "p" ? null : "list"),
