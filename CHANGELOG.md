@@ -5,6 +5,7 @@
 - Fixed updater not informing user about update
 - Fixed updater not informing user about experimental versions
 - Improved user interface
+- You can now choose the amount of questions to generate.
 - Clean up dependencies
 # v1.2.2 (7/08/2021 12:12PM AEST) Problem Solvers Patch 2
 - Update updater callback function
