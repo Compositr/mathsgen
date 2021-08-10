@@ -7,7 +7,8 @@
 - Improved user interface
 - You can now choose the amount of questions to generate.
 - Clean up dependencies
-- Experimental algebra stuff (not working yet)
+- Experimental algebra stuff (not working yet, user cannot access it.)
+
 # v1.2.2 (7/08/2021 12:12PM AEST) Problem Solvers Patch 2
 - Update updater callback function
 - Added some more objects & characters to the problem solving engine
