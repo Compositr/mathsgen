@@ -37,13 +37,27 @@ updater(
       {
         type: "select",
         name: "type",
+        hint: "Use arrow keys to move up and down. Press ENTER to submit.",
         message: chalk`Select a type of worksheet to generate.`,
         choices: [
-          { title: "Addition", value: "+" },
-          { title: "Subtraction", value: "-" },
-          { title: "Multiplication", value: "*" },
-          { title: "Division", value: "/" },
-          { title: "Problem Solving", description: "", value: "p" },
+          { title: "Addition", value: "+", description: "Addition questions" },
+          {
+            title: "Subtraction",
+            value: "-",
+            description: "Subtraction questions",
+          },
+          {
+            title: "Multiplication",
+            value: "*",
+            description: "Multiplication questions",
+          },
+          { title: "Division", value: "/", description: "Division questions" },
+          {
+            title: "Problem Solving",
+            description:
+              "Problem solving questions are worded maths questions instead of direct questions",
+            value: "p",
+          },
         ],
       },
       {
