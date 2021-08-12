@@ -6,8 +6,8 @@
 - Fixed updater not informing user about experimental versions
 - Improved user interface
 - You can now choose the amount of questions to generate.
-- Clean up dependencies
-- Experimental algebra stuff (not working yet, user cannot access it.)
+- Clean up dependencies and reduced binary size by about ~10MB
+- Added basic algebra functionality
 
 # v1.2.2 (7/08/2021 12:12PM AEST) Problem Solvers Patch 2
 - Update updater callback function
