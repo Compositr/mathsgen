@@ -1,14 +1,17 @@
 <!-- @format -->
+# v1.3.0 (12/08/2021 4:52PM AEST) The Choice Update
+- Clean up code
+- You can now select the range of numbers to use when generating worksheets! (Does not work with problem solving)
+- Fixed updater not informing user about update
+- Fixed updater not informing user about experimental versions
+- Improved user interface
+- You can now choose the amount of questions to generate.
+- Clean up dependencies and reduced binary size by about ~10MB
+- Added basic algebra functionality
 
 # v1.2.2 (7/08/2021 12:12PM AEST) Problem Solvers Patch 2
-
 - Update updater callback function
 - Added some more objects & characters to the problem solving engine
-
-# v1.2.1-hotfix
-
-- Hotfix for updaters
-
 # v1.2.1 (6/08/2021 10:00AM AEST) Problem Solvers Patch 1
 
 - Updater does not output null when program is up to date

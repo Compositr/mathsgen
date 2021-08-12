@@ -2,16 +2,20 @@
 
 const latest = require("./lib/latest-version.js");
 const chalk = require("chalk");
-
-const defaultMessage = (options) => {
-  if (options.currentVersion === options.latestVersion) return null;
-  else {
-    return chalk`{cyan !} An update is avaliable! {gray ({yellow ${options.currentVersion}} => {green ${options.latestVersion}})} Go to {underline {blue https://github.com/cooljim/mathsgen/releases}} to fetch the latest update`;
+const { compare } = require("compare-versions");
+const defaultMessage = function (options, latestVersion) {
+  const isOutdated = compare(options.currentVersion, latestVersion, "<")
+  const isExperimental = compare(options.currentVersion, latestVersion, ">")
+  if (latestVersion == options.currentVersion) {
+    return null;
+  } else if (isOutdated) {
+    return chalk`{cyan !} Update avaliable! {yellow ${options.currentVersion}} => {green ${latestVersion}}. Get it at {underline {blue https://github.com/CoolJim/mathsgen/releases}}`;
+  } else if(isExperimental) {
+    return chalk`{cyan β} Experimental version detected. Please be careful`;
   }
 };
 module.exports = function (options, cb) {
   latest(options, function (err, latestVersion) {
-    options.latestVersion = latestVersion;
     if (err) {
       cb(err);
       return;
@@ -19,7 +23,7 @@ module.exports = function (options, cb) {
       cb(null, latestVersion, null);
       return;
     } else {
-      cb(null, latestVersion, defaultMessage(options));
+      cb(null, latestVersion, defaultMessage(options, latestVersion));
       return;
     }
   });

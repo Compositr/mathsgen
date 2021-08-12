@@ -9,16 +9,17 @@
 
 /** Dependencies */
 
-const fs = require("fs");
-const { v4: uuid } = require("uuid");
 const { default: jsPDF } = require("jspdf");
-const prompt = require("prompt");
+const prompts = require("prompts");
 const chalk = require("chalk");
-const updater = require("./libs/updater");
+const pause = require("node-pause");
 
+const updater = require("./libs/updater");
+const al = require("./database/al");
 const problemGen = require("./database/ps");
 const pkg = require("./package.json");
-const questionsPerSheet = 50;
+const pMsg = chalk`{green √} {bold Press any key to continue}`;
+let questionsPerSheet = 50;
 
 /** Check for update */
 updater(
@@ -28,28 +29,68 @@ updater(
     user: "CoolJim",
     branch: "main",
   },
-  (err, latestVersion, defualtMessage) => {
+  async (err, latestVersion, defualtMessage) => {
     /** Make sure to filter if returned is null (returns null primitive object???) */
-    if (!err) {
-      if (defualtMessage !== null) console.log(defualtMessage);
-      /** Start program after it checks for updates. */
-      prompt.start();
-      prompt.message = chalk`{cyan ?} Select a type of worksheet and press {green ENTER} {gray Valid choices are {magenta + - / * p}}`;
+    if (defualtMessage !== null) console.log(defualtMessage);
 
-      prompt.get("type", (err, res) => {
-        if (err) return err(err);
-        app(res.type);
-        /** Pause */
-        prompt.message = chalk`{green √} Press enter to continue...`;
-        prompt.get(" ", (err, res) => {});
-      });
-    }
+    /** Start program after it checks for updates. */
+    const questions = [
+      {
+        type: "select",
+        name: "type",
+        hint: "Use arrow keys to move up and down. Press ENTER to submit.",
+        message: chalk`Select a type of worksheet to generate.`,
+        choices: [
+          { title: "Addition", value: "+", description: "Addition questions" },
+          {
+            title: "Subtraction",
+            value: "-",
+            description: "Subtraction questions",
+          },
+          {
+            title: "Multiplication",
+            value: "*",
+            description: "Multiplication questions",
+          },
+          { title: "Division", value: "/", description: "Division questions" },
+          {
+            title: "Problem Solving",
+            description:
+              "Problem solving questions are worded maths questions instead of direct questions",
+            value: "p",
+          },
+          {
+            title: "Algebra",
+            description: "Experimental algebra questions. Figure out the x",
+            value: "a",
+          },
+        ],
+      },
+      {
+        type: (prev) => (prev == "p" ? null : "list"),
+        name: "range",
+        message: chalk`This program generates questions with random numbers from a range. Select the range. {gray (seperate with comma)}`,
+      },
+      {
+        type: (prev) => (prev == "p" ? null : "number"),
+        name: "questionsPerSheet",
+        message: chalk`Amount of questions to generate {gray Max. 65, Min. 1}`,
+        validate: (ans) =>
+          ans < 1 || ans > 65 ? chalk`Maximum is 65, minimum is 1` : true,
+      },
+    ];
+    const res = await prompts(questions);
+    questionsPerSheet = res.questionsPerSheet;
+    if (res.range) {
+      app(res.type, parseInt(res.range[0]) || 1, parseInt(res.range[1]) || 0);
+    } else app(res.type, 1, 10);
   }
 );
 
-function app(type) {
+function app(type, h, l) {
   /** Environment Variables */
   let humantype;
+  if (type == "a") humantype = "Algebra"
   if (type == "+") humantype = "Addition";
   if (type == "*") humantype = "Multiplication";
   if (type == "/") humantype = "Division";
@@ -60,8 +101,8 @@ function app(type) {
   let questions = [];
   if (type == "+") {
     for (let index = 0; index < questionsPerSheet; index++) {
-      let first = rnd(1, 25);
-      let last = rnd(1, 25);
+      let first = rnd(l, h);
+      let last = rnd(l, h);
       let answer = first + last;
       questions.push({
         q: `${first} + ${last}=`,
@@ -70,12 +111,12 @@ function app(type) {
     }
   } else if (type == "-") {
     for (let i = 0; i < questionsPerSheet; i++) {
-      let first = rnd(1, 25);
-      let last = rnd(1, 25);
+      let first = rnd(l, h);
+      let last = rnd(l, h);
       /** Prevent negative answers */
       while (first < last) {
-        first = rnd(1, 25);
-        last = rnd(1, 25);
+        first = rnd(l, h);
+        last = rnd(l, h);
       }
       let answer = first - last;
       questions.push({
@@ -85,8 +126,8 @@ function app(type) {
     }
   } else if (type === "*") {
     for (let i = 0; i < questionsPerSheet; i++) {
-      let first = rnd(1, 12);
-      let last = rnd(1, 12);
+      let first = rnd(l, h);
+      let last = rnd(l, h);
       let answer = first * last;
       questions.push({
         q: `${first}×${last}=`,
@@ -95,16 +136,16 @@ function app(type) {
     }
   } else if (type === "/") {
     for (let i = 0; i < questionsPerSheet; i++) {
-      let first = rnd(1, 12);
-      let last = rnd(1, 12);
+      let first = rnd(l, h);
+      let last = rnd(l, h);
       while (
         first < last ||
         (first / last) % 1 != 0 ||
         first / last == 1 ||
         last == 1
       ) {
-        first = rnd(1, 30);
-        last = rnd(1, 30);
+        first = rnd(l, h);
+        last = rnd(l, h);
       }
       let answer = first / last;
       questions.push({
@@ -114,6 +155,8 @@ function app(type) {
     }
   } else if (type == "p") {
     questions = problemGen();
+  } else if (type == "a") {
+    questions = al(questionsPerSheet, [l, h])
   }
   if (typeof humantype == "undefined") {
     err(
@@ -163,7 +206,7 @@ function app(type) {
     let x = 0;
     let fromTop = 4;
     for (let i = 0; i < questions.length; i++) {
-      if (x % 5 == 0) {
+      if (x % 6 == 0) {
         fromTop += 2;
         x = 0;
       }
@@ -182,11 +225,13 @@ function app(type) {
   console.log(
     chalk`{green √} Successfully generated {magenta ${humantype}} worksheet! File at: ${__dirname}\\worksheet.pdf`
   );
+  return pause(pMsg);
   function rnd(min, max) {
     return Math.floor(Math.random() * (max - min + 1)) + min;
   }
   function err(e) {
-    return console.log(chalk`{red X} Whoops! An error occured. Please refer to the message below for more information
+    console.log(chalk`{red X} Whoops! An error occured. Please refer to the message below for more information
   ${e}`);
+    return pause(pMsg);
   }
 }
