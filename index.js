@@ -15,6 +15,7 @@ const chalk = require("chalk");
 const pause = require("node-pause");
 
 const updater = require("./libs/updater");
+const al = require("./database/al");
 const problemGen = require("./database/ps");
 const pkg = require("./package.json");
 const pMsg = chalk`{green √} {bold Press any key to continue}`;
@@ -58,6 +59,11 @@ updater(
               "Problem solving questions are worded maths questions instead of direct questions",
             value: "p",
           },
+          {
+            title: "Algebra",
+            description: "Experimental algebra questions. Figure out the x",
+            value: "a",
+          },
         ],
       },
       {
@@ -84,6 +90,7 @@ updater(
 function app(type, h, l) {
   /** Environment Variables */
   let humantype;
+  if (type == "a") humantype = "Algebra"
   if (type == "+") humantype = "Addition";
   if (type == "*") humantype = "Multiplication";
   if (type == "/") humantype = "Division";
@@ -148,6 +155,8 @@ function app(type, h, l) {
     }
   } else if (type == "p") {
     questions = problemGen();
+  } else if (type == "a") {
+    questions = al(questionsPerSheet, [l, h])
   }
   if (typeof humantype == "undefined") {
     err(
