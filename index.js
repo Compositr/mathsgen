@@ -21,6 +21,7 @@ const pkg = require("./package.json");
 const { error } = require("./libs/local/logger");
 const pMsg = chalk`{green √} {bold Press any key to continue}`;
 let questionsPerSheet = 50;
+const { rnd } = require("./libs/local/tools");
 
 /** Check for update */
 updater(
@@ -227,7 +228,4 @@ function app(type, h, l) {
     chalk`{green √} Successfully generated {magenta ${humantype}} worksheet! File at: ${__dirname}\\worksheet.pdf`
   );
   return pause(pMsg);
-  function rnd(min, max) {
-    return Math.floor(Math.random() * (max - min + 1)) + min;
-  }
 }
