@@ -225,7 +225,7 @@ function app(type, h, l) {
   }
   doc.save("worksheet.pdf");
   console.log(
-    chalk`{green √} Successfully generated {magenta ${humantype}} worksheet! File at: ${__dirname}\\worksheet.pdf`
+    chalk`{green √} Successfully generated {magenta ${humantype}} worksheet! Check the folder this program is in for a PDF`
   );
   return pause(pMsg);
 }
