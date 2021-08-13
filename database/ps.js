@@ -6,9 +6,7 @@
  * This file handles math problem generation and handles other math-y stuff.
  */
 
-function rnd(min, max) {
-  return Math.floor(Math.random() * (max - min + 1)) + min;
-}
+const { rnd } = require("../libs/local/tools")
 
 const characters = [
   "Billy",

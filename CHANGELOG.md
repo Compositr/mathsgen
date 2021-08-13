@@ -3,6 +3,7 @@
 # v1.3.1 The Choice Update Patch 1
 - Clean up code & remove unneded lines
 - Unified error handling
+- Unified random number generation
 
 
 # v1.3.0 (8/08/2021 4:52PM AEST) The Choice Update

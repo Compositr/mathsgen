@@ -4,9 +4,8 @@
  * @format
  */
 
-
 const pronumerals = ["x", "y", "z", "a", "n", "b"];
-
+const { rnd } = require("../libs/local/tools");
 module.exports = (amountOfQuestions, range) => {
   let questions = [];
   for (let i = 0; i < amountOfQuestions; i++) {
@@ -21,4 +20,3 @@ module.exports = (amountOfQuestions, range) => {
   }
   return questions;
 };
-
