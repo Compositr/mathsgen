@@ -18,6 +18,7 @@ const updater = require("./libs/updater");
 const al = require("./database/al");
 const problemGen = require("./database/ps");
 const pkg = require("./package.json");
+const { error } = require("./libs/local/logger");
 const pMsg = chalk`{green √} {bold Press any key to continue}`;
 let questionsPerSheet = 50;
 
@@ -90,7 +91,7 @@ updater(
 function app(type, h, l) {
   /** Environment Variables */
   let humantype;
-  if (type == "a") humantype = "Algebra"
+  if (type == "a") humantype = "Algebra";
   if (type == "+") humantype = "Addition";
   if (type == "*") humantype = "Multiplication";
   if (type == "/") humantype = "Division";
@@ -156,10 +157,10 @@ function app(type, h, l) {
   } else if (type == "p") {
     questions = problemGen();
   } else if (type == "a") {
-    questions = al(questionsPerSheet, [l, h])
+    questions = al(questionsPerSheet, [l, h]);
   }
   if (typeof humantype == "undefined") {
-    err(
+    error(
       chalk`Worksheet type {magenta ${type}} is not supported! Supported types are {magenta + - / * p}`
     );
     return;
@@ -228,10 +229,5 @@ function app(type, h, l) {
   return pause(pMsg);
   function rnd(min, max) {
     return Math.floor(Math.random() * (max - min + 1)) + min;
-  }
-  function err(e) {
-    console.log(chalk`{red X} Whoops! An error occured. Please refer to the message below for more information
-  ${e}`);
-    return pause(pMsg);
   }
 }
