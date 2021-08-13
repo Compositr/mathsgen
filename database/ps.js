@@ -6,16 +6,8 @@
  * This file handles math problem generation and handles other math-y stuff.
  */
 
-
-
 function rnd(min, max) {
   return Math.floor(Math.random() * (max - min + 1)) + min;
-}
-function err(e) {
-  return console.log(chalk`
-  {red Whoops! An error occured. Please refer to the message below for more information}
-  ${e}
-  `);
 }
 
 const characters = [
@@ -41,7 +33,7 @@ const characters = [
   "Ted",
   "Oscar",
   "Willy",
-  "Jackie"
+  "Jackie",
 ];
 const objects = [
   "pencils",
@@ -57,7 +49,7 @@ const objects = [
   "bananas",
   "chips",
   "pineapples",
-  "fruits"
+  "fruits",
 ];
 module.exports = () => {
   const questions = [];
