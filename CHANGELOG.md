@@ -6,6 +6,7 @@
 - Unified random number generation
 - Fixed misleading messages
 - Answers and questions are now aligned horizontally
+- Changed datestamp position and updated format to include the year.
 
 
 # v1.3.0 (8/08/2021 4:52PM AEST) The Choice Update

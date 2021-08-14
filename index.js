@@ -168,22 +168,20 @@ function app(type, h, l) {
     return;
   }
 
-
   /** Doc */
   const d = new Date();
-  const genTime = new Intl.DateTimeFormat("en-AU", { month: "long" }).format(d);
+  const genMonth = new Intl.DateTimeFormat("en-AU", { month: "long" }).format(d);
+  const genYear = new Intl.DateTimeFormat("en-AU", { year: "numeric"}).format(d)
   const doc = new jsPDF({
     orientation: "p",
     unit: "cm",
   });
   doc.setFont("Times");
   doc.setFontSize(24);
-  doc.text(
-    `${humantype} Worksheet (Generated ${d.getDate()}, ${genTime})`,
-    1,
-    2
-  );
+  doc.text(`${humantype} Worksheet`, 1, 2);
+
   doc.setFontSize(12);
+  doc.text(`Generated ${d.getDate()}, ${genMonth} ${genYear}`, 1, 2.7);
 
   if (type !== "p") {
     let top = 3;
