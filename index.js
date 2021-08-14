@@ -23,6 +23,7 @@ const pMsg = chalk`{green √} {bold Press any key to continue}`;
 let questionsPerSheet = 50;
 const { rnd } = require("./libs/local/tools");
 
+/** Need to get rid of callback hell */
 /** Check for update */
 updater(
   {
@@ -166,6 +167,8 @@ function app(type, h, l) {
     );
     return;
   }
+
+
   /** Doc */
   const d = new Date();
   const genTime = new Intl.DateTimeFormat("en-AU", { month: "long" }).format(d);
@@ -208,13 +211,13 @@ function app(type, h, l) {
     let x = 0;
     let fromTop = 4;
     for (let i = 0; i < questions.length; i++) {
-      if (x % 6 == 0) {
+      if (x % 5 == 0) {
         fromTop += 2;
         x = 0;
       }
       const element = questions[i];
 
-      doc.text(`A${i + 1}. ${element.a}`, x * 3 + 1, fromTop);
+      doc.text(`A${i + 1}. ${element.a}`, x * 4 + 1, fromTop);
       x++;
     }
   } else {
