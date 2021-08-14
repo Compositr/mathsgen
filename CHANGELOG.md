@@ -5,6 +5,7 @@
 - Unified error handling
 - Unified random number generation
 - Fixed misleading messages
+- Answers and questions are now aligned horizontally
 
 
 # v1.3.0 (8/08/2021 4:52PM AEST) The Choice Update
