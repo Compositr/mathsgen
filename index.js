@@ -22,6 +22,14 @@ const { error } = require("./libs/local/logger");
 const pMsg = chalk`{green √} {bold Press any key to continue}`;
 let questionsPerSheet = 50;
 const { rnd } = require("./libs/local/tools");
+const settings = require("./libs/local/settings");
+
+if (settings.get("openedTimes")) {
+  let openedTimes = settings.get("openedTimes");
+  settings.set("openedTimes", openedTimes + 1);
+} else {
+  settings.set("openedTimes", 1);
+}
 
 /** Need to get rid of callback hell */
 /** Check for update */
@@ -170,8 +178,12 @@ function app(type, h, l) {
 
   /** Doc */
   const d = new Date();
-  const genMonth = new Intl.DateTimeFormat("en-AU", { month: "long" }).format(d);
-  const genYear = new Intl.DateTimeFormat("en-AU", { year: "numeric"}).format(d)
+  const genMonth = new Intl.DateTimeFormat("en-AU", { month: "long" }).format(
+    d
+  );
+  const genYear = new Intl.DateTimeFormat("en-AU", { year: "numeric" }).format(
+    d
+  );
   const doc = new jsPDF({
     orientation: "p",
     unit: "cm",
