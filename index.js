@@ -215,11 +215,11 @@ function app(type, h, l) {
     }
   }
   doc.addPage({ orientation: "p", unit: "cm" });
-  doc.text("ANSWERS", 1, 2);
+  doc.text("ANSWERS", 1, 1);
 
   if (type !== "p") {
     let x = 0;
-    let fromTop = 4;
+    let fromTop = 3;
     for (let i = 0; i < questions.length; i++) {
       if (x % 5 == 0) {
         fromTop += 2;
