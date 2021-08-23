@@ -14,15 +14,17 @@ import prompts from "prompts";
 import chalk from "chalk";
 import pause from "node-pause";
 
+/** Local Dependencies */
 import updater from "./libs/updater";
 import al from "./database/al";
 import problemGen from "./database/ps";
 import pkg from "./package.json";
 import { error } from "./libs/local/logger";
+import { rnd } from "./libs/local/tools";
+import * as settings from "./libs/local/settings";
+
 const pMsg = chalk`{green √} {bold Press any key to continue}`;
 let questionsPerSheet = 50;
-import { rnd } from "./libs/local/tools";
-import settings from "./libs/local/settings";
 
 if (settings.get("openedTimes")) {
   let openedTimes = settings.get("openedTimes");
@@ -40,7 +42,7 @@ updater(
     user: "CoolJim",
     branch: "main",
   },
-  async (err, latestVersion, defualtMessage) => {
+  async (_err: any, _latestVersion: any, defualtMessage: any) => {
     /** Make sure to filter if returned is null (returns null primitive object???) */
     if (defualtMessage !== null) console.log(defualtMessage);
 
@@ -78,15 +80,15 @@ updater(
         ],
       },
       {
-        type: (prev) => (prev == "p" ? null : "list"),
+        type: (prev: string) => (prev == "p" ? null : "list"),
         name: "range",
         message: chalk`This program generates questions with random numbers from a range. Select the range. {gray (seperate with comma)}`,
       },
       {
-        type: (prev) => (prev == "p" ? null : "number"),
+        type: (prev: string) => (prev == "p" ? null : "number"),
         name: "questionsPerSheet",
         message: chalk`Amount of questions to generate {gray Max. 65, Min. 1}`,
-        validate: (ans) =>
+        validate: (ans: number) =>
           ans < 1 || ans > 65 ? chalk`Maximum is 65, minimum is 1` : true,
       },
     ];
@@ -98,9 +100,9 @@ updater(
   }
 );
 
-function app(type, h, l) {
+function app(type: string, h: number, l: number) {
   /** Environment Variables */
-  let humantype;
+  let humantype: string;
   if (type == "a") humantype = "Algebra";
   if (type == "+") humantype = "Addition";
   if (type == "*") humantype = "Multiplication";

@@ -5,8 +5,8 @@
  */
 
 const pronumerals = ["x", "y", "z", "a", "n", "b"];
-const { rnd } = require("../libs/local/tools");
-module.exports = (amountOfQuestions, range) => {
+import { rnd } from "../libs/local/tools";
+export default (amountOfQuestions: number, range?: any) => {
   let questions = [];
   for (let i = 0; i < amountOfQuestions; i++) {
     let x = rnd(1, 10);

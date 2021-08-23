@@ -1,19 +1,19 @@
 /** @format */
+import fs from "fs"
 
-const fs = require("fs");
 try {
   fs.readFileSync("settings.dat");
 } catch {
   fs.writeFileSync("settings.dat", `{}`);
 }
-const file = fs.readFileSync("settings.dat");
+const file = fs.readFileSync("settings.dat", {encoding: "utf-8"});
 
-module.exports.set = (key, value) => {
+export function set(key: string, value: any) {
   let jsonFile = JSON.parse(file);
   jsonFile[key] = value;
   fs.writeFileSync("settings.dat", JSON.stringify(jsonFile));
 };
-module.exports.get = (key) => {
+export function get(key: string) {
   const jsonFile = JSON.parse(file);
   for (const k in jsonFile) {
     if (Object.hasOwnProperty.call(jsonFile, key)) {
@@ -21,7 +21,7 @@ module.exports.get = (key) => {
     }
   }
 };
-module.exports.delete = (key) => {
+export function del(key: string){
   let jsonFile = JSON.parse(file);
   let exists;
   for (const k in jsonFile) {

@@ -6,7 +6,7 @@
  * This file handles math problem generation and handles other math-y stuff.
  */
 
-const { rnd } = require("../libs/local/tools")
+import { rnd } from "../libs/local/tools";
 
 const characters = [
   "Billy",
@@ -49,7 +49,7 @@ const objects = [
   "pineapples",
   "fruits",
 ];
-module.exports = () => {
+export default () => {
   const questions = [];
   for (let i = 0; i < 25; i++) {
     const rand = rnd(1, 4);
