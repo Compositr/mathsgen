@@ -9,20 +9,20 @@
 
 /** Dependencies */
 
-const { default: jsPDF } = require("jspdf");
-const prompts = require("prompts");
-const chalk = require("chalk");
-const pause = require("node-pause");
+import { default as jsPDF } from "jspdf";
+import prompts from "prompts";
+import chalk from "chalk";
+import pause from "node-pause";
 
-const updater = require("./libs/updater");
-const al = require("./database/al");
-const problemGen = require("./database/ps");
-const pkg = require("./package.json");
-const { error } = require("./libs/local/logger");
+import updater from "./libs/updater";
+import al from "./database/al";
+import problemGen from "./database/ps";
+import pkg from "./package.json";
+import { error } from "./libs/local/logger";
 const pMsg = chalk`{green √} {bold Press any key to continue}`;
 let questionsPerSheet = 50;
-const { rnd } = require("./libs/local/tools");
-const settings = require("./libs/local/settings");
+import { rnd } from "./libs/local/tools";
+import settings from "./libs/local/settings";
 
 if (settings.get("openedTimes")) {
   let openedTimes = settings.get("openedTimes");
@@ -214,7 +214,7 @@ function app(type, h, l) {
       doc.text(`Q${n + 1}. ${e.q}`, 1, n + 3);
     }
   }
-  doc.addPage({ orientation: "p", unit: "cm" });
+  doc.addPage();
   doc.text("ANSWERS", 1, 1);
 
   if (type !== "p") {
