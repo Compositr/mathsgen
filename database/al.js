@@ -4,10 +4,8 @@
  * @format
  */
 
-
-
 const pronumerals = ["x", "y", "z", "a", "n", "b"];
-
+const { rnd } = require("../libs/local/tools");
 module.exports = (amountOfQuestions, range) => {
   let questions = [];
   for (let i = 0; i < amountOfQuestions; i++) {
@@ -22,8 +20,3 @@ module.exports = (amountOfQuestions, range) => {
   }
   return questions;
 };
-function err(e) {
-  console.log(chalk`{red X} Whoops! An error occured. Please refer to the message below for more information
-  ${e}`);
-  return pause(pMsg);
-}

@@ -1,5 +1,15 @@
 <!-- @format -->
-# v1.3.0 (12/08/2021 4:52PM AEST) The Choice Update
+
+# v1.3.1 The Choice Update Patch 1
+- Clean up code & remove unneded lines
+- Unified error handling
+- Unified random number generation
+- Fixed misleading messages
+- Answers and questions are now aligned horizontally
+- Changed datestamp position and updated format to include the year.
+
+
+# v1.3.0 (8/08/2021 4:52PM AEST) The Choice Update
 - Clean up code
 - You can now select the range of numbers to use when generating worksheets! (Does not work with problem solving)
 - Fixed updater not informing user about update

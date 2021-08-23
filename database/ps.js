@@ -6,41 +6,7 @@
  * This file handles math problem generation and handles other math-y stuff.
  */
 
-/**
- * @class
- * Mathamatical Expression object class
- */
-class Expression {
-  /**
-   * Generate a new Expression
-   * @param {String} expr An expression
-   * @param {Number} answer Answer to the expression
-   * @param {Number} first First number
-   * @param {Number} last Last number
-   * @param {String} type Type of question
-   */
-  constructor(expr, answer, first, last, type) {
-    this.expr = expr;
-    this.answer = answer;
-    this.first = first;
-    this.last = last;
-    this.type = type;
-  }
-  evalutate() {
-    return eval(expr);
-  }
-}
-
-
-function rnd(min, max) {
-  return Math.floor(Math.random() * (max - min + 1)) + min;
-}
-function err(e) {
-  return console.log(chalk`
-  {red Whoops! An error occured. Please refer to the message below for more information}
-  ${e}
-  `);
-}
+const { rnd } = require("../libs/local/tools")
 
 const characters = [
   "Billy",
@@ -65,7 +31,7 @@ const characters = [
   "Ted",
   "Oscar",
   "Willy",
-  "Jackie"
+  "Jackie",
 ];
 const objects = [
   "pencils",
@@ -81,7 +47,7 @@ const objects = [
   "bananas",
   "chips",
   "pineapples",
-  "fruits"
+  "fruits",
 ];
 module.exports = () => {
   const questions = [];

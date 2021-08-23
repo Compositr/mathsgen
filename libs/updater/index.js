@@ -2,6 +2,7 @@
 
 const latest = require("./lib/latest-version.js");
 const chalk = require("chalk");
+const semver = require("semver");
 const { compare } = require("compare-versions");
 const defaultMessage = function (options, latestVersion) {
   const isOutdated = compare(options.currentVersion, latestVersion, "<")

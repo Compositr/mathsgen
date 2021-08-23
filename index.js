@@ -18,9 +18,20 @@ const updater = require("./libs/updater");
 const al = require("./database/al");
 const problemGen = require("./database/ps");
 const pkg = require("./package.json");
+const { error } = require("./libs/local/logger");
 const pMsg = chalk`{green √} {bold Press any key to continue}`;
 let questionsPerSheet = 50;
+const { rnd } = require("./libs/local/tools");
+const settings = require("./libs/local/settings");
 
+if (settings.get("openedTimes")) {
+  let openedTimes = settings.get("openedTimes");
+  settings.set("openedTimes", openedTimes + 1);
+} else {
+  settings.set("openedTimes", 1);
+}
+
+/** Need to get rid of callback hell */
 /** Check for update */
 updater(
   {
@@ -90,7 +101,7 @@ updater(
 function app(type, h, l) {
   /** Environment Variables */
   let humantype;
-  if (type == "a") humantype = "Algebra"
+  if (type == "a") humantype = "Algebra";
   if (type == "+") humantype = "Addition";
   if (type == "*") humantype = "Multiplication";
   if (type == "/") humantype = "Division";
@@ -156,29 +167,33 @@ function app(type, h, l) {
   } else if (type == "p") {
     questions = problemGen();
   } else if (type == "a") {
-    questions = al(questionsPerSheet, [l, h])
+    questions = al(questionsPerSheet, [l, h]);
   }
   if (typeof humantype == "undefined") {
-    err(
+    error(
       chalk`Worksheet type {magenta ${type}} is not supported! Supported types are {magenta + - / * p}`
     );
     return;
   }
+
   /** Doc */
   const d = new Date();
-  const genTime = new Intl.DateTimeFormat("en-AU", { month: "long" }).format(d);
+  const genMonth = new Intl.DateTimeFormat("en-AU", { month: "long" }).format(
+    d
+  );
+  const genYear = new Intl.DateTimeFormat("en-AU", { year: "numeric" }).format(
+    d
+  );
   const doc = new jsPDF({
     orientation: "p",
     unit: "cm",
   });
   doc.setFont("Times");
   doc.setFontSize(24);
-  doc.text(
-    `${humantype} Worksheet (Generated ${d.getDate()}, ${genTime})`,
-    1,
-    2
-  );
+  doc.text(`${humantype} Worksheet`, 1, 2);
+
   doc.setFontSize(12);
+  doc.text(`Generated ${d.getDate()}, ${genMonth} ${genYear}`, 1, 2.7);
 
   if (type !== "p") {
     let top = 3;
@@ -200,11 +215,11 @@ function app(type, h, l) {
     }
   }
   doc.addPage({ orientation: "p", unit: "cm" });
-  doc.text("ANSWERS", 1, 2);
+  doc.text("ANSWERS", 1, 1);
 
   if (type !== "p") {
     let x = 0;
-    let fromTop = 4;
+    let fromTop = 3;
     for (let i = 0; i < questions.length; i++) {
       if (x % 6 == 0) {
         fromTop += 2;
@@ -212,7 +227,7 @@ function app(type, h, l) {
       }
       const element = questions[i];
 
-      doc.text(`A${i + 1}. ${element.a}`, x * 3 + 1, fromTop);
+      doc.text(`A${i + 1}. ${element.a}`, x * 4 + 1, fromTop);
       x++;
     }
   } else {
@@ -223,15 +238,7 @@ function app(type, h, l) {
   }
   doc.save("worksheet.pdf");
   console.log(
-    chalk`{green √} Successfully generated {magenta ${humantype}} worksheet! File at: ${__dirname}\\worksheet.pdf`
+    chalk`{green √} Successfully generated {magenta ${humantype}} worksheet! Check the folder this program is in for a PDF`
   );
   return pause(pMsg);
-  function rnd(min, max) {
-    return Math.floor(Math.random() * (max - min + 1)) + min;
-  }
-  function err(e) {
-    console.log(chalk`{red X} Whoops! An error occured. Please refer to the message below for more information
-  ${e}`);
-    return pause(pMsg);
-  }
 }
