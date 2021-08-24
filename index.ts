@@ -18,7 +18,7 @@ import pause from "node-pause";
 import updater from "./libs/updater";
 import al from "./database/al";
 import problemGen from "./database/ps";
-import pkg from "./package.json";
+import * as pkg from "./package.json";
 import { error } from "./libs/local/logger";
 import { rnd } from "./libs/local/tools";
 import * as settings from "./libs/local/settings";
