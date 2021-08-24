@@ -22,6 +22,7 @@
   },
   "homepage": "https://github.com/CoolJim/mathsgen#readme",
   "devDependencies": {
+    "@types/node": "^16.7.1",
     "eslint": "^7.31.0",
     "prettier": "^2.3.2"
   },
