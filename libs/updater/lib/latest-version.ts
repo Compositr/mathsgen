@@ -1,9 +1,16 @@
 /** @format */
 
-const got = require("got");
+interface options {
+  name: string,
+  currentVersion: string
+  user: string
+  branch: string
+}
+
+import got from "got";
 const url = "https://raw.githubusercontent.com/";
 export default function latest(
-  options,
+  options: options,
   cb: (err: string | Error, latestVersion?: string) => void
 ) {
   if (typeof options.branch === "undefined") options.branch = "master";
