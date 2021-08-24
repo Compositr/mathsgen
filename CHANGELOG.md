@@ -1,5 +1,10 @@
 <!-- @format -->
 
+# v1.3.2 Typescript Revolution
+- Changed all JavaScript code to Typescript
+- Changed some internals to optimise the program
+- Removed some uneeded dependecies
+- Refractor internals due to TypeScript migration
 # v1.3.1 The Choice Update Patch 1
 - Clean up code & remove unneded lines
 - Unified error handling
