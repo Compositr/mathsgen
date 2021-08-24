@@ -1,4 +1,5 @@
-# Do not commit binaries
+# Do not commit binaries or builds
+build/
 releases/
 
 *.pdf
