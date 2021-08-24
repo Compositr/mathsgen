@@ -1,3 +1,6 @@
+# Do not commit binaries
+releases/
+
 *.pdf
 *.dat
 # Logs
