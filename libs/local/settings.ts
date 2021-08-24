@@ -33,4 +33,4 @@ export function del(key: string){
   delete jsonFile[key];
   fs.writeFileSync("settings.dat", JSON.stringify(jsonFile));
 };
-module.exports.reset = () => {};
+export function reset() {};
